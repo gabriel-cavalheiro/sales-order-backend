@@ -41,3 +41,56 @@ Content-Type: application/json
 ###
 
 DELETE http://{{localhost}}/Customers(id={{id}})
+
+###
+
+# Buscar todos os pedidos maiores ou iguais a 2 milhões
+GET http://{{localhost}}/SalesOrderHeaders?$filter=totalAmount ge 2000000
+
+###
+
+# Buscar todos os pedidos menores ou iguais a 200k
+GET http://{{localhost}}/SalesOrderHeaders?$filter=totalAmount le 200000
+
+###
+
+# Expandindo os items, produtos e customers
+GET http://{{localhost}}/SalesOrderHeaders?$expand=items($expand=product),customer
+
+###
+
+# Expandindo os items, produtos, customers e filtrando
+GET http://{{localhost}}/SalesOrderHeaders?$expand=items($expand=product;$filter=quantity le 30),customer
+
+###
+
+# Selecionar somente customer e id do sales order header
+
+GET http://{{localhost}}/SalesOrderHeaders?$select=customer&$expand=customer($select=email)
+
+
+###
+
+# Descobrindo a quantidade de registros
+
+GET http://{{localhost}}/SalesOrderHeaders/$count
+
+
+###
+
+# Paginando os registros
+
+GET http://{{localhost}}/SalesOrderHeaders?$skip=10&$top=5
+
+###
+
+# Buscando dados com $search
+GET http://{{localhost}}/SalesOrderHeaders?$search=91pve&$filter=totalAmount gt 500
+
+###
+
+# Funcionalidade de clonar pedidos
+POST http://{{localhost}}/SalesOrderHeaders(15196739-2936-4d66-b85c-283f5ae8ec03)/cloneSalesOrder
+Content-Type: application/json
+
+{}

@@ -2,10 +2,13 @@
     "[development]": {
         "requires": {
             "db": {
-                "crendentials": {
-                    "database": ":memory:"
-                },
-                "kind": "sqlite"
+                "kind": "sqlite",
+                "model": [
+                    "db/schema"
+                ],
+                "credentials": {
+                    "database": "db/db.sqlite"
+                }
             }
         }
     }

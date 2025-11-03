@@ -14,5 +14,5 @@ DELETE http://localhost:4004/odata/v4/main/SalesOrderHeaders
 Content-Type: application/json
 
 {
-   "id": "1234"
+   "id": "f48de019-8152-41dd-93c8-9508869b592e"
 }

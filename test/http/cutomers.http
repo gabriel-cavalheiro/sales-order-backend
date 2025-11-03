@@ -10,8 +10,7 @@ POST http://{{localhost}}/Customers
 Content-Type: application/json
 
 {
-    "id": "{{id}}",
-    "firstName": "Gabriel",
+    "firstName": "Teste",
     "lastName": "Cavalheiro",
     "email": "gabriel.cavalheiromr@gmail.com"
 

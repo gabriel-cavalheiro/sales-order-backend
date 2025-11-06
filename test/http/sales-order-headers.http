@@ -1,9 +1,11 @@
 @localhost=localhost:4004/odata/v4/main
-@id=140f35de-5379-48aa-a22d-4ac85f75c4c1
-@customerId=140f35de-5379-48aa-a22d-4ac85f75c4c1
-@productID=fbb212c2-8aee-460b-91ac-dd2388e541ff
+@id=c4b0f1b9-4c40-4f8a-90b8-f886e119f140
+@customerId=22398235-f619-425f-a33d-1f668673f062
+# produto sem estoque
+@productId1=12549520-218c-4e31-b657-6f27b6acf3ae
+@productId2=5345576f-8357-48da-aab6-78549623f37f
 
-GET http://{{localhost}}/SalesOrderHeaders
+GET http://{{localhost}}/SalesOrderHeaders?$filter=id eq {{id}}&$expand=items
 Content-Type: application/json
 
 ###
@@ -12,35 +14,39 @@ POST http://{{localhost}}/SalesOrderHeaders
 Content-Type: application/json
 
 {
-   "id":"{{id}}",
-   "customer_id": "{{customerId}}",
-   "items": [
-      {
-         "id": "b9c3a8f0-d592-488a-ac6b-4a02444395fc",
-         "header_id": "{{id}}",
-         "product_id": "{{productID}}",
-         "quantity": 10,
-         "price": 2.99
-      },
-      {
-         "id": "778392c2-5479-47d5-8743-13171afdcc58",
-         "header_id": "{{id}}",
-         "product_id": "{{productID}}",
-         "quantity": 10,
-         "price": 1.99
-      }
-   ]
-
+    "id": "{{id}}",
+    "customer_id": "{{customerId}}",
+    "items": [
+        {
+            "id": "c23ccfc1-2d10-4274-8e1c-6aa7d95e0300",
+            "header_id": "{{id}}",
+            "product_id": "{{productId1}}",
+            "quantity": 10,
+            "price": 2.99
+        },
+        {
+            "id": "1463f1d6-4c71-4822-9497-86ede7ba9f2b",
+            "header_id": "{{id}}",
+            "product_id": "{{productId2}}",
+            "quantity": 5,
+            "price": 1.99
+        }
+    ]
 }
 
 ###
 
-PATCH  http://{{localhost}}/Customers(id={{id}})
+DELETE http://{{localhost}}/SalesOrderHeaders(id={{id}})
 Content-Type: application/json
 
 ###
 
-DELETE http://{{localhost}}/Customers(id={{id}})
+PUT http://{{localhost}}/SalesOrderHeaders(id={{id}})
+Content-Type: application/json
+
+{
+    "modifiedBy": "teste"
+}
 
 ###
 
@@ -68,13 +74,11 @@ GET http://{{localhost}}/SalesOrderHeaders?$expand=items($expand=product;$filter
 
 GET http://{{localhost}}/SalesOrderHeaders?$select=customer&$expand=customer($select=email)
 
-
 ###
 
 # Descobrindo a quantidade de registros
 
 GET http://{{localhost}}/SalesOrderHeaders/$count
-
 
 ###
 
@@ -86,6 +90,7 @@ GET http://{{localhost}}/SalesOrderHeaders?$skip=10&$top=5
 
 # Buscando dados com $search
 GET http://{{localhost}}/SalesOrderHeaders?$search=91pve&$filter=totalAmount gt 500
+
 
 ###
 
